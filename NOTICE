@@ -1,0 +1,7 @@
+image_open_detection
+Copyright 2026
+
+This operator's own code is Apache-2.0 (see LICENSE).
+
+third_party/LLMDet is the upstream LLMDet project and remains under the Apache License 2.0
+included in that directory. It is not relicensed by this repository's LICENSE.

@@ -1,0 +1,18 @@
+# Build from workspace root:
+#   docker build -f algos/image_open_detection/v1_0/Dockerfile.server -t algo-image_open_detection-server:v1_0 .
+FROM pytorch/pytorch:2.4.1-cuda12.1-cudnn9-runtime
+
+WORKDIR /app
+RUN apt-get update && apt-get install -y --no-install-recommends libgl1-mesa-glx libglib2.0-0 \
+    && rm -rf /var/lib/apt/lists/*
+RUN pip install --no-cache-dir fastapi uvicorn pydantic loguru requests Pillow \
+    mmengine transformers timm nltk peft "mmcv>=2.2.0" "mmdet>=3.3.0"
+COPY common /app/common
+COPY . /app/algo
+COPY third_party/LLMDet /opt/LLMDet
+WORKDIR /app/algo
+ENV PYTHONPATH=/app:/app/algo:/opt/LLMDet
+ENV LLMDET_ROOT=/opt/LLMDet
+ENV LLMDET_MODEL_DIR=/checkpoints/LLMDet
+EXPOSE 8000
+CMD ["python", "image_open_detection_server.py", "--host", "0.0.0.0", "--port", "8000"]

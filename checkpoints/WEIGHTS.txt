@@ -1,0 +1,8 @@
+# Weights are not stored in this repository.
+
+checkpoints/LLMDet/tiny.pth
+  LLMDet Swin-T checkpoint (default).
+  https://huggingface.co/fushh7/LLMDet
+
+Other variants from the same repository, if you change --variant:
+  tiny_p5.pth, base.pth, large.pth
